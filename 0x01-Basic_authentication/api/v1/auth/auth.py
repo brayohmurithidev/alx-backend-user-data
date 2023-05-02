@@ -13,7 +13,16 @@ class Auth:
         Method that will be called before each request to validate if a
         request is authenticated or not
         """
-        return False
+        if not path:
+            return True
+        if not excluded_paths:
+            return True
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('/'):
+                excluded_path = excluded_path[:-1]
+            if path == excluded_path or path.startswith(excluded_path + '/'):
+                return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
