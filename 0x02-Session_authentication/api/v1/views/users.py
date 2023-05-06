@@ -42,13 +42,29 @@ def delete_user(user_id: str = None) -> str:
       - empty JSON is the User has been correctly deleted
       - 404 if the User ID doesn't exist
     """
-    if user_id is None:
+    if user_id == 'me':
+        if request.current_user is None:
+            abort(404)
+        return jsonify(request.current_user.to_dict())
+    else:
+        user = User.get(user_id)
+        if not user:
+            abort(404)
+        return jsonify(user.to_dict())
+    # if user_id is None:
+    #     abort(404)
+    # user = User.get(user_id)
+    # if user is None:
+    #     abort(404)
+    # user.remove()
+    # return jsonify({}), 200
+
+
+@app_views.route('/users/me', methods=['GET'], strict_slashes=False)
+def me() -> str:
+    if not request.current_user:
         abort(404)
-    user = User.get(user_id)
-    if user is None:
-        abort(404)
-    user.remove()
-    return jsonify({}), 200
+    return jsonify(request.current_user.to_dict())
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
@@ -120,3 +136,5 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
+
+
