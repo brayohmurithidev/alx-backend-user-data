@@ -57,3 +57,14 @@ class DB:
         if query.first() is None:
             raise NoResultFound
         return query.first()
+
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
+        '''Update user'''
+        user_to_update = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            # Check if passed key is available in user attributes
+            if not hasattr(user_to_update, key):
+                raise ValueError
+            setattr(user_to_update, key, value)
+            self._session.commit()
+        return None
