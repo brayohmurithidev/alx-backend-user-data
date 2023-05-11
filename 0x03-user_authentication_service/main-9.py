@@ -2,10 +2,6 @@
 """
 Main file
 """
-from auth import Auth
+from auth import _generate_uuid
 
-auth = Auth()
-
-
-
-print(auth._generate_uuid())
+print(_generate_uuid())
