@@ -55,7 +55,8 @@ def logout():
         AUTH.destroy_session(user.id)
         return redirect(url_for('index'))
     except NoResultFound:
-        return jsonify({"error": "Invalid session ID or user does not exist"}), 403
+        return jsonify({"error": "Invalid session\
+                        ID or user does not exist"}), 403
 
 
 @app.route('/profile', methods=['GET'])
