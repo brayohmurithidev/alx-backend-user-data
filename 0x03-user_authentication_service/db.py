@@ -42,7 +42,7 @@ class DB:
         user_obj = session.query(User).filter(User.id == user.id).first()
         return user_obj
 
-    def find_user_by(self, **kwargs: Dict[str, Any]) -> User:
+    def find_user_by(self, **kwargs: Any) -> User:
         '''Find user and filter by arbitrary arguments.
         '''
         # Initialize the query obj
