@@ -7,6 +7,7 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET'])
 def index():
     '''Index route'''
@@ -14,6 +15,7 @@ def index():
         "message": "Bienvenue"
     })
 
+
 if __name__ == '__main__':
-    '''Run the app'''   
+    '''Run the app'''
     app.run(host="0.0.0.0", port="5000")
