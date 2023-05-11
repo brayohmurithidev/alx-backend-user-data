@@ -15,9 +15,7 @@ def _hash_password(password: str) -> bytes:
     hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     return hashed
 
-def _generate_uuid() -> str:
-    '''Generate uuids'''
-    return uuid.uuid4()
+
 
 
 class Auth:
@@ -49,4 +47,6 @@ class Auth:
             return False
         else:
             return False
-
+    def _generate_uuid(self) -> str:
+        '''Generate uuids'''
+        return uuid.uuid4()
